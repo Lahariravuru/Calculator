@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    .calculator {
+      background: #2196f3;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+    }
+
+    #display {
+      width: 100%;
+      height: 60px;
+      background: #bbdefb;
+      border: none;
+      border-radius: 10px;
+      text-align: right;
+      font-size: 2em;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      height: 60px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #1976d2;
+      color: #fff;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #1565c0;
+    }
+
+    .operator {
+      background: #0d47a1;
+    }
+
+    .equal {
+      background: #2e7d32;
+    }
+
+    .clear {
+      background: #e53935;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" value="0" disabled>
+    <div class="buttons">
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button class="operator">+</button>
+
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button class="operator">-</button>
+
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button class="equal">=</button>
+
+      <button class="clear">C</button>
+      <button>0</button>
+      <button>.</button>
+      <button class="operator">/</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+    let currentInput = "";
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const value = button.textContent;
+
+        if (value === "C") {
+          currentInput = "";
+          display.value = "0";
+        } else if (value === "=") {
+          try {
+            currentInput = eval(currentInput).toString();
+            display.value = currentInput;
+          } catch {
+            display.value = "Error";
+            currentInput = "";
+          }
+        } else {
+          if (display.value === "0" && !isNaN(value)) {
+            currentInput = value;
+          } else {
+            currentInput += value;
+          }
+          display.value = currentInput;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
